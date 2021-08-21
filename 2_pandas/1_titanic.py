@@ -63,3 +63,90 @@ print(value_counts)
 # 3    491
 # 1    216
 # 2    184
+
+col_name1 = ['col']
+
+list1 = [1,2,3]
+
+array1 = np.array(list1)
+
+print('array1 shape : ', array1.shape)
+
+# array1 shape :  (3,)
+
+# 리스트를 이용해 DataFrame 생성
+
+df_list1 = pd.DataFrame(list1, columns=col_name1)
+print('1차원 리스트로 만든 DataFrame :\n', df_list1)
+# 1차원 리스트로 만든 DataFrame :
+#     col
+# 0    1 
+# 1    2 
+# 2    3 
+
+# 넘파이 ndarray를 이용해 DataFrame 생성
+df_array1 = pd.DataFrame(array1, columns=col_name1)
+print('1차원 ndarray로 만든 DataFrame:\n', df_array1)
+# 1차원 ndarray로 만든 DataFrame:
+#     col
+# 0    1
+# 1    2
+# 2    3
+
+# 3개의 컬럼명이 필요함 
+col_name = ['col1', 'col2', 'col3']
+
+# 2x3 형태의 리스트와 ndarray 생성한 뒤 이를 DataFrame으로 변환 
+
+list = [[1,2,3],
+        [11,12,13]]
+
+array = np.array(list)
+
+print('array shape', array.shape)
+# array shape (2, 3) 
+
+df_list = pd.DataFrame(list, columns=col_name)
+print('2차원 리스트로 만든 DataFrame : \n', df_list)
+# 2차원 리스트로 만든 DataFrame : 
+#     col1  col2  col3
+# 0     1     2     3
+# 1    11    12    13
+
+df_array = pd.DataFrame(array, columns=col_name)
+print('2차원 ndarray로 만든 DataFrame : \n', df_array)
+# 2차원 ndarray로 만든 DataFrame :
+#     col1  col2  col3
+# 0     1     2     3
+# 1    11    12    13
+
+# key는 문자열 칼럼명으로 매핑, value는 리스트 형(또는 ndarray) 칼럼 데이터로 매핑
+dict = {'col1':[1,11], 'col2':[2,22], 'col3':[3,33]}
+df_dict=pd.DataFrame(dict)
+print('딕셔너리로 만든 DataFrame :\n', df_dict)
+
+# 딕셔너리로 만든 DataFrame :
+#     col1  col2  col3
+# 0     1     2     3
+# 1    11    22    33
+
+array3 = df_dict.values
+print('df_dict.values 타입 : ', type(array3), 'df_dict.values shape : ', array3.shape)
+# df_dict.values 타입 :  <class 'numpy.ndarray'> df_dict.values shape :  (2, 3)
+print(array3)
+# [[ 1  2  3]
+#  [11 22 33]]
+
+# df -> list
+list3 = df_dict.values.tolist()
+print('df_dict.value.tolist() 타입 : ', type(list3))
+# df_dict.value.tolist() 타입 :  <class 'list'>
+print(list3)
+# [[1, 2, 3], [11, 22, 33]]
+
+# df -> dict
+dict3 = df_dict.to_dict('list')
+# df_dict.to_dict() 타입 :  <class 'dict'>
+print('\n df_dict.to_dict() 타입 : ', type(dict3))
+# {'col1': [1, 11], 'col2': [2, 22], 'col3': [3, 33]}
+print(dict3)
