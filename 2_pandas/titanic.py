@@ -176,3 +176,38 @@ print(titanic_df.head(3))
 # 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      0      480.0          2
 # 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      0      360.0          1
 
+titanic_drop_df = titanic_df.drop('Age_0', axis=1)
+print(titanic_drop_df.head(3))
+#    PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked  Age_by_10  Family_No
+# 0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S      320.0          2
+# 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      480.0          2
+# 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      360.0          1
+
+
+print(titanic_df.head(3))
+#    PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked  Age_0  Age_by_10  Family_No
+# 0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S      0      320.0          2
+# 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      0      480.0          2
+# 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      0      360.0          1
+
+drop_result = titanic_df.drop(['Age_0', 'Age_by_10', 'Family_No'], axis=1, inplace=True)
+print('inplace=True 로 drop 후 반환된 값 : ', drop_result)
+print(titanic_df.head(3))
+
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_colwidth', 15)
+print('===============before axis 0 drop==========')
+print(titanic_df.head(3))
+
+#    PassengerId  Survived  Pclass            Name     Sex   Age  SibSp  Parch          Ticket     Fare Cabin Embarked
+# 0            1         0       3  Braund, Mr....    male  22.0      1      0       A/5 21171   7.2500   NaN        S
+# 1            2         1       1  Cumings, Mr...  female  38.0      1      0        PC 17599  71.2833   C85        C
+# 2            3         1       3  Heikkinen, ...  female  26.0      0      0  STON/O2. 31...   7.9250   NaN        S
+
+titanic_df.drop([0,1,2], axis=0, inplace=True)
+print('=============after axis 0drop ==========')
+print(titanic_df.head(3))
+   PassengerId  Survived  Pclass            Name     Sex   Age  SibSp  Parch  Ticket     Fare Cabin Embarked
+3            4         1       1  Futrelle, M...  female  35.0      1      0  113803  53.1000  C123        S
+4            5         0       3  Allen, Mr. ...    male  35.0      0      0  373450   8.0500   NaN        S
+5            6         0       3  Moran, Mr. ...    male   NaN      0      0  330877   8.4583   NaN        Q
