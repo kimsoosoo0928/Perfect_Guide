@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 titanic_df = pd.read_csv('./titanic_train.csv')
 print('titanic 변수 type : ', type(titanic_df))
@@ -150,3 +151,28 @@ dict3 = df_dict.to_dict('list')
 print('\n df_dict.to_dict() 타입 : ', type(dict3))
 # {'col1': [1, 11], 'col2': [2, 22], 'col3': [3, 33]}
 print(dict3)
+
+titanic_df['Age_0'] = 0
+print(titanic_df.head(3))
+
+#    PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked  Age_0
+# 0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S      0
+# 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      0
+# 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      0
+
+titanic_df['Age_by_10'] = titanic_df['Age']*10
+titanic_df['Family_No'] = titanic_df['SibSp'] + titanic_df['Parch'] + 1
+print(titanic_df.head(3))
+#    PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked  Age_0  Age_by_10  Family_No
+# 0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S      0      220.0          2
+# 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      0      380.0          2
+# 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      0      260.0          1
+
+titanic_df['Age_by_10'] = titanic_df['Age_by_10'] + 100
+print(titanic_df.head(3))
+
+#    PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked  Age_0  Age_by_10  Family_No
+# 0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S      0      320.0          2
+# 1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C      0      480.0          2
+# 2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S      0      360.0          1
+
