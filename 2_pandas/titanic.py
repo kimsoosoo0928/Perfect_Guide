@@ -327,3 +327,38 @@ print('new_value_counts 객체 변수 타입 : ',type(new_value_counts))
 # 1      1     216
 # 2      2     184
 # new_value_counts 객체 변수 타입 :  <class 'pandas.core.frame.DataFrame'>
+
+print('단일 칼럼 데이터 추출:\n', titanic_df['Pclass'].head(3))
+print('\n여러 칼럼의 데이터 추출:\n', titanic_df[['Survived', 'Pclass']].head(3))
+# print('[] 안에 숫자 index는 KetError 오류 발생:\n', titanic_df[0])
+# 단일 칼럼 데이터 추출:
+#  0    3
+# 1    1
+# 2    3
+# Name: Pclass, dtype: int64
+
+# 여러 칼럼의 데이터 추출:
+#     Survived  Pclass
+# 0         0       3
+# 1         1       1
+# 2         1       3
+
+# Traceback (most recent call last):
+#   File "d:\Perfect_Guide\2_pandas\titanic.py", line 333, in <module>
+#     print('[] 안에 숫자 index는 KetError 오류 발생:\n', titanic_df[0])
+#   File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py", line 3024, in __getitem__
+#     indexer = self.columns.get_loc(key)
+#   File "C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\indexes\base.py", line 3082, in get_loc
+#     raise KeyError(key) from err
+# KeyError: 0
+
+print(titanic_df[0:2])
+#    PassengerId  Survived  Pclass            Name     Sex   Age  SibSp  Parch     Ticket     Fare Cabin Embarked
+# 0            1         0       3  Braund, Mr....    male  22.0      1      0  A/5 21171   7.2500   NaN        S
+# 1            2         1       1  Cumings, Mr...  female  38.0      1      0   PC 17599  71.2833   C85        C
+
+print(titanic_df[titanic_df['Pclass'] == 3].head(3))
+#    PassengerId  Survived  Pclass            Name     Sex   Age  SibSp  Parch          Ticket   Fare Cabin Embarked
+# 0            1         0       3  Braund, Mr....    male  22.0      1      0       A/5 21171  7.250   NaN        S
+# 2            3         1       3  Heikkinen, ...  female  26.0      0      0  STON/O2. 31...  7.925   NaN        S
+# 4            5         0       3  Allen, Mr. ...    male  35.0      0      0          373450  8.050   NaN        S
