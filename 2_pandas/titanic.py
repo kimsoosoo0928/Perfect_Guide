@@ -362,3 +362,70 @@ print(titanic_df[titanic_df['Pclass'] == 3].head(3))
 # 0            1         0       3  Braund, Mr....    male  22.0      1      0       A/5 21171  7.250   NaN        S
 # 2            3         1       3  Heikkinen, ...  female  26.0      0      0  STON/O2. 31...  7.925   NaN        S
 # 4            5         0       3  Allen, Mr. ...    male  35.0      0      0          373450  8.050   NaN        S
+
+# print('칼럼 위치 기반 인덱싱 데이터 추출 : ', titanic_df.ix[0, 2])
+# print('칼럼 명 기반 인덱싱 데이터 추출 : ', titanic_df.ix[0, 'Pclass'])
+
+data = {'Name' : ['Chulmin', 'Eunkyung', 'Jinwoong', 'Soobeom'],
+        'Year' : [2011, 2016, 2015, 2015],
+        'Gender' : ['Male', 'Female', 'Male', 'Male']
+        }
+data_df = pd.DataFrame(data, index=['one', 'two', 'three', 'four'])
+print(data_df)
+#            Name  Year  Gender
+# one     Chulmin  2011    Male
+# two    Eunkyung  2016  Female
+# three  Jinwoong  2015    Male
+# four    Soobeom  2015    Male
+
+# data_df 를 reset_index()로 새로운 숫자형 인덱스를 생성
+data_df_reset = data_df.reset_index()
+data_df_reset = data_df_reset.rename(columns={'index':'old_index'})
+
+# 인덱스값에 1을 더해서 1부터 시작하는 새로운 인덱스값 생성
+data_df_reset.index = data_df_reset.index+1
+print(data_df_reset)
+
+#   old_index      Name  Year  Gender
+# 1       one   Chulmin  2011    Male
+# 2       two  Eunkyung  2016  Female
+# 3     three  Jinwoong  2015    Male
+# 4      four   Soobeom  2015    Male
+
+print(data_df.iloc[0,0])
+# Chulmin
+
+# 오류 
+# data_df.iloc[0,'Name']
+
+# 오류
+# data_df.iloc['one', 0]
+
+print(data_df_reset.iloc[0,1])
+# Chulmin
+
+print(data_df.loc['one','Name'])
+# Chulmin
+
+print(data_df_reset.loc[1,'Name'])
+# Chulmin
+
+# 오류
+# print(data_df_reset.loc[0,'Name'])
+
+print('위치기반 iloc slicing\n', data_df.iloc[0:1, 0], '\n')
+
+print('명령 기반 loc slicing\n', data_df.loc['one':'two','Name'])
+
+# 위치기반 iloc slicing
+#  one    Chulmin
+# Name: Name, dtype: object
+
+# 명령 기반 loc slicing
+#  one     Chulmin
+# two    Eunkyung
+# Name: Name, dtype: object
+
+print(data_df_reset.loc[1:2, 'Name'])
+# 1     Chulmin
+# 2    Eunkyung
