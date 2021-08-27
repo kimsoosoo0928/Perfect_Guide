@@ -510,3 +510,40 @@ print(titanic_df.groupby('Pclass').agg(agg_format))
 # 1       80.0     90  84.154687
 # 2       70.0     74  20.662183
 # 3       74.0    302  13.675550
+
+# 결손 데이터 처리하기
+print(titanic_df.isna().head(3))
+
+print(titanic_df.isna().sum())
+
+# PassengerId      0
+# Survived         0
+# Pclass           0
+# Name             0
+# Sex              0
+# Age            177
+# SibSp            0
+# Parch            0
+# Ticket           0
+# Fare             0
+# Cabin          687
+# Embarked         2
+
+titanic_df['Cabin'] = titanic_df['Cabin'].fillna('C000')
+titanic_df['Age'] = titanic_df.fillna(titanic_df['Age'].mean())
+titanic_df['Embarked'] = titanic_df.fillna(titanic_df['Embarked'].fillna('S'))
+print(titanic_df.isna().sum())
+
+# PassengerId    0
+# Survived       0
+# Pclass         0
+# Name           0
+# Sex            0
+# Age            0
+# SibSp          0
+# Parch          0
+# Ticket         0
+# Fare           0
+# Cabin          0
+# Embarked       0
+
