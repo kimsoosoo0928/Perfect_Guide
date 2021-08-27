@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from pandas.core import series
+from pandas.core import groupby, series
 
 titanic_df = pd.read_csv('./titanic_train.csv')
 print('titanic 변수 type : ', type(titanic_df))
@@ -449,3 +449,64 @@ cond1 = titanic_df['Age']>60
 cond2 = titanic_df['Pclass']==1
 cond3 = titanic_df['Sex']=='female'
 print(titanic_df[cond1 & cond2 & cond3])
+
+# 정렬, Aggregation 함수, GroupBy 적용
+
+
+titanic_sorted = titanic_df.sort_values('Name')
+print(titanic_sorted.head(3))
+
+titanic_sorted = titanic_df.sort_values(by=['Pclass', 'Name'], ascending=False)
+print(titanic_sorted.head(3))
+
+print(titanic_df.count())
+
+# PassengerId    891
+# Survived       891
+# Pclass         891
+# Name           891
+# Sex            891
+# Age            714
+# SibSp          891
+# Parch          891
+# Ticket         891
+# Fare           891
+# Cabin          204
+# Embarked       889
+
+titanic_df[['Age', 'Fare']].mean()
+
+titanic_groupby = titanic_df.groupby(by='Pclass')
+print(type(titanic_groupby))
+
+# <class 'pandas.core.groupby.generic.DataFrameGroupBy'>
+
+titanic_groupby = titanic_df.groupby(by='Pclass').count()
+print(titanic_groupby)
+
+
+titanic_groupby = titanic_df.groupby('Pclass')[['PassengerId', 'Survived']].count()
+print(titanic_groupby)
+
+#         PassengerId  Survived
+# Pclass
+# 1               216       216
+# 2               184       184
+# 3               491       491
+
+print(titanic_df.groupby('Pclass')['Age'].agg([max, min]))
+
+#          max   min
+# Pclass
+# 1       80.0  0.92
+# 2       70.0  0.67
+# 3       74.0  0.42
+
+agg_format={'Age':'max', 'SibSp':'sum', 'Fare':'mean'}
+print(titanic_df.groupby('Pclass').agg(agg_format))
+
+#          Age  SibSp       Fare
+# Pclass
+# 1       80.0     90  84.154687
+# 2       70.0     74  20.662183
+# 3       74.0    302  13.675550
