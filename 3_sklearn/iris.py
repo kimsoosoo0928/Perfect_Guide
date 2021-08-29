@@ -14,7 +14,23 @@ iris_lable = iris.target
 print(iris_lable)
 print(iris.target_names)
 
-# to df
-iris_df = pd.DataFrame(data=iris_data, columns=iris.feature_names)
-iris_df['lable'] = iris.target
-iris_df.head(3)
+# [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+#  0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+#  2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#  2 2]
+# ['setosa' 'versicolor' 'virginica']
+
+iris_df = pd.DataFrame(data=iris_data, )
+
+x_train, x_test, y_train, y_test = train_test_split(iris_data, iris_lable, test_size=0.2, random_state=11)
+
+df_clf = DecisionTreeClassifier(random_state=11)
+
+df_clf.fit(x_train, y_train)
+
+pred = df_clf.predict(x_test)
+
+from sklearn.metrics import accuracy_score
+
+print('acc : {0:.4f}'.format(accuracy_score(y_test, pred)))
